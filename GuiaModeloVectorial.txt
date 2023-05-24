@@ -1,0 +1,109 @@
+##///////// PARA MODELO VECTORIAL \\\\\\\\\##
+
+REQUERIMEINTOS DEL MODELO VECTORIAL
+>> discord.py==2.2.2
+>> numpy==1.22.4
+
+1.- Crear el archivo de conocimeinto con los vectores de los Intents. (Ejemplo anexo en 'IntentsC.cvs').
+2.- Modificar la entrada del usuario de texto a vector, leyendo las cabeceras del archivo de conocimiento y creando el vector. 
+
+Ejemplo de entrada como vector:
+
+	>> hola
+	(Cabeceras de IntentsC.cvs)
+	['hola', 'buenos', 'dias', 'tardes', 'noches', 'buenas', 'cuentame', 'dime', 'chiste', 'me', 'siento', 'triste','feliz', 'estoy', 'otro', 'adios']
+	(Entrada transformada a vector)
+	['1', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0']
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	def split_user_inputV(user_input):
+	    archivo = open('nombre_archivo.txt', 'r')  # Reemplaza 'nombre_archivo.txt' con la ruta y nombre de tu archivo
+	    try:
+	        primera_linea = archivo.readline().strip()
+	        opciones = primera_linea.split(',')
+	        #print(opciones)
+	    finally:
+	        archivo.close()
+	    trasnformada = []
+	    ##AGREGA AQUÍ TU CÓDIGO PARA CREAR EL VECTOR A PARTIR DEL user_input.
+	    return trasnformada
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+3.- Calcular la distancia entre vectores de la entrada transformada y los vectores almacenados en 'intentsC.csv'.
+	Para ello es necesario utilizar las funciones de la biblioteca de NumPy 'NumPy.linalg.norm()', almacenar la menor distancia junto con el nombre del intent al que corresponde esa distancia.
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	def find_IntentV(user_input):
+    ##user_input debe ser en forma de Vector.
+    archivo = open('nombre_archivo.txt', 'r')  # Reemplaza 'nombre_archivo.txt' con la ruta y nombre de tu archivo
+    lineas = []
+    minDist = 1000000
+    intent = ""
+    try:
+        next(archivo)##Saltarse la primera linea con las cabeceras.
+        for linea in archivo:
+        	##AGREGA AQUÍ EL CÓDIGO PARA LEER LAS LÍNEAS, NOTA QUE ESTO ES SOLO UNA BASE, POR LO QUE PARA LLEGAR AL CÁLCULO DEL VECTOR DEBERÁS PROCESAR DE FORMA CORRECTA LA LÍNEA DEL ARCHIVO ANTES DE HACER EL CÁLCULO.
+            a = np.array(linea)		##Crear el arreglo de NumPy
+            b = np.array(user_in_t)	##Crear el arreglo de NumPy
+            a = a.astype(int)	##Convertir a tipo numérico
+            b = b.astype(int)	##Convertir a tipo numérico
+            dist = np.linalg.norm(a-b) ##Distancia entre vectores
+            if dist < minDist:
+            	##AGREGA AQUÍ EL CÓDIGO PARA ENCONTRAR EL MENOR Y ALMACENAR EL INTENT
+    finally:
+        archivo.close()
+    return intent
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+4.- Obten el Intent de tu base de conocimiento.
+
+##RECUERDA QUE PARA QUE ESTE MODELO FUNCIONE ES NECESARIO APLICAR ALGUNAS MODIFICACIONES AL ARCHIVO DEL CHATBOT, EL COMO ENCONTRAR EL INTENT SE LOS DEJO A USTEDES PUES ESE EL OBJETIVO DE ESTA PARTE DEL PROYECTO, PERO LAS DEMÁS MODIFICACIONES AL ARCHIVO SE ALS DEJO ACÁ ABAJO.
+
+
+REEMPLAZAR LA FUNCIÓN __init__() 
+
+    def __init__(self):
+        """
+        ChatBot consta de una base de conocimiento
+        representada como una lista de casos o intents.
+        """
+        self.conocimiento = []
+        for caso in conocimiento:
+            self.conocimiento.append(caso)
+
+MODIFICAR LA FUNCION encontrar_intent(user_input)
+
+    def encontrar_intent(self, user_input):
+        '''
+        Encuentra el caso o intent asociado en la base de conocimiento
+
+        :param str user_input: El texto escrito por el usuario
+        :return El diccionario que representa el caso o intent deseado
+        :rtype: str
+        '''
+     	##AGREGA AQUÍ TU CÓDIGO PARA IDENTIFICAR EL INTENT DE ACUERDO AL MODELO VECTORIAL.
+        return {}
+
+REEMPLAZAR PARTE DE LA FUNCION convertir_respuesta(self, respuesta, caso, user_input)
+
+    def convertir_respuesta(self, respuesta, caso, user_input):
+        '''
+        Cambia los textos del tipo %1, %2, %3, etc., por su correspondiente propiedad
+        identificada en los grupos parentizados de la expresión regular asociada.
+
+        :param str respuesta: Una respuesta que desea convertirse
+        :param dict caso: El caso o intent asociado a la respuesta
+        :param str user_input: El texto escrito por el usuario
+        :return La respuesta con el cambio de parámetros
+        :rtype: str
+        '''
+        respuesta_cambiada = respuesta
+        intent = caso['intent']
+        ##YA QUE NO SE ESTÁN PRECOMPILANDO LAS EXPRECIONES REGULARES ES NECESARIO COMPILARLAS ANTES DE USARLAS PARA REEMPLAZAR PARTES DEL TEXTO. DENTRO DEL 'if match' VA TODO EL CÓDIGO QUE YA HAYAN HECHO, LES DEJO ESE EJEMPLO PARA QUE NO SE CONFUNDAN.
+        for regularexp in caso['regex']:
+            regex = re.compile(regularexp, re.IGNORECASE)
+            match = regex.match(user_input)
+            if match:
+                if intent == 'estado':
+                    respuesta_cambiada = respuesta_cambiada.replace('%1', match.group(1))
+        return respuesta_cambiada
