@@ -5,6 +5,7 @@
 import string, re, random, sys
 from conocimiento import conocimientoT
 from ResponseFunctions import contar_chiste, despedida
+from pokedex import pokedexC
 
 class ChatBot:
     """
@@ -71,8 +72,18 @@ class ChatBot:
         intent = caso['intent']
         if intent == 'bienvenida':
             self.contexto = "BIENVENIDA"
-        elif intent == 'chiste':
-            self.contexto = "CHISTE"
+        elif intent == 'tipo':
+            self.contexto = "TIPO"
+        elif intent == 'peso':
+            self.contexto = "PESO"
+        elif intent == 'altura':
+            self.contexto = "ALTURA"
+        elif intent == 'debilidad':
+            self.contexto = "DEBILIDAD"
+        elif intent == 'fortaleza':
+            self.contexto = "FORTALEZA"
+        elif intent == 'descripcion':
+            self.contexto = "DESCRIPCION"
         elif intent == 'desconocido':
             self.contexto = "DEFAULT"  
 
@@ -105,7 +116,17 @@ class ChatBot:
         :rtype: str
         '''
         intent = caso['intent']
-        if intent == 'chiste':
+        if intent == 'tipo':
+            return contar_chiste()
+        elif intent == 'peso': 
+            return contar_chiste()
+        elif intent == 'altura': 
+            return contar_chiste()
+        elif intent == 'debilidad': 
+            return contar_chiste()
+        elif intent == 'fortaleza': 
+            return contar_chiste()
+        elif intent == 'descripcion': 
             return contar_chiste()
         elif intent == 'terminar':
             print(despedida(user_input))
@@ -133,6 +154,10 @@ class ChatBot:
 #---------------------------------------#
 conocimiento = conocimientoT()
 
+#---------------------------------------#
+#  pokedex                              #
+#---------------------------------------#
+pokedex = pokedexC()
 
 #---------------------------------------#
 #  Interfaz de texto                    #

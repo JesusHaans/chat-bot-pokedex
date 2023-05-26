@@ -23,30 +23,69 @@ def conocimientoT():
                 r'.*buen(a|o)s (dias|tardes|noches).*',
             ],
             'respuesta': [
-                'Ah, Hola... ',
-                'Hola, soy una IA de conversación.'
+                'Hola, soy una pokedex.',
+                'Hola, soy una IA de conversación sobre pokemones.',
+                'Hola, ¿En que puedo ayudarte?'
             ]
         },
-        #////////////////////////////////////////////////Chiste.
+        #////////////////////////////////////////////////Tipo.
         {
-            'intent': 'chiste',
+            'intent': 'tipo',
             'regex': [
-                r'.*chiste.*',
-                r'.*broma.*'
+                r'(.*)tipo(.*)',
             ],
             'respuesta': [
-                'Bien',
-                'Ahí te va'
+                'El tipo de %1 es '
             ]
         },
-        #////////////////////////////////////////////////Chiste.
+        #////////////////////////////////////////////////Peso.
         {
-            'intent': 'estado',
+            'intent': 'peso',
             'regex': [
-                r'^.*me siento (.*)$',
+                r'(.*)peso(.*)$',
             ],
             'respuesta': [
-                'Por que te sientes %1'
+                'El peso de %1 es '
+            ]
+        }, 
+        #////////////////////////////////////////////////Altura.
+        {
+            'intent': 'altura',
+            'regex': [
+                r'(.*)altura(.*)',
+            ],
+            'respuesta': [
+                'La altura de %1 es '
+            ]
+        },
+        #////////////////////////////////////////////////Debilidad.
+        {
+            'intent': 'debilidad',
+            'regex': [
+                r'(.*)(debilidad|debilidades)(.*)$',
+            ],
+            'respuesta': [
+                'La debilidad de %1 es '
+            ]
+        }, 
+        #////////////////////////////////////////////////Fortaleza.
+        {
+            'intent': 'Fortaleza',
+            'regex': [
+                r'(.*)(fortaleza|fortalezas)(.*)',
+            ],
+            'respuesta': [
+                'La fortaleza de %1 es '
+            ]
+        },
+        #////////////////////////////////////////////////Descripcion.
+        {
+            'intent': 'descripcion',
+            'regex': [
+                r'(.*)descripcion(.*)$',
+            ],
+            'respuesta': [
+                'La descripcion de %1 es '
             ]
         }, 
         #////////////////////////////////////////////////Fin.
