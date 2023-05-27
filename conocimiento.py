@@ -23,8 +23,8 @@ def conocimientoT():
                 r'.*buen(a|o)s (dias|tardes|noches).*',
             ],
             'respuesta': [
-                'Hola, soy una pokedex.',
-                'Hola, soy una IA de conversación sobre pokemones.',
+                'Hola, soy una pokédex.',
+                'Hola, soy una IA de conversación sobre pokémones.',
                 'Hola, ¿En que puedo ayudarte?'
             ]
         },
@@ -32,7 +32,9 @@ def conocimientoT():
         {
             'intent': 'tipo',
             'regex': [
-                r'(.*)tipo(.*)',
+                # r'(.*)tipo (.*)$', -----esta no jala
+                r'^.*tipo de (.*)$',
+                r'^.*tipo es (.*)$',
             ],
             'respuesta': [
                 'El tipo de %1 es '
@@ -42,7 +44,8 @@ def conocimientoT():
         {
             'intent': 'peso',
             'regex': [
-                r'(.*)peso(.*)$',
+                r'^.*peso de(.*)$',
+                r'^.*peso tiene(.*)$',
             ],
             'respuesta': [
                 'El peso de %1 es '

@@ -5,7 +5,7 @@
 import string, re, random, sys
 from conocimiento import conocimientoT
 from ResponseFunctions import contar_chiste, despedida
-from pokedex import pokedexC
+from pokedex import pokedexC, pokemonesC
 
 class ChatBot:
     """
@@ -101,9 +101,37 @@ class ChatBot:
         respuesta_cambiada = respuesta
         intent = caso['intent']
         match = self.regexp_selected.match(user_input)
-        if intent == 'estado':
-            respuesta_cambiada = respuesta_cambiada.replace('%1', match.group(1))
+        if intent == 'tipo':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+            else:
+                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
         return respuesta_cambiada
+    
+
+    def obtener_nombre_pokemon(self, user_input):
+    # Expresión regular para buscar los nombres de Pokémon
+        patron = r"\b(" + "|".join(pokemones) + r")\b"
+
+    # Buscar el nombre de Pokémon en la cadena
+        resultado = re.search(patron, user_input, re.IGNORECASE)
+        if resultado:
+            return resultado.group(0)
+        else:
+            return None
+        
+    def obtener_numero_pokemon(self, user_input):
+    # Expresión regular para buscar los nombres de Pokémon
+        patron = r'[0-9][0-9][0-9]'
+
+    # Buscar el nombre de Pokémon en la cadena
+        resultado = re.search(patron, user_input, re.IGNORECASE)
+        if resultado:
+            return resultado.group(0)
+        else:
+            return None
 
     def acciones(self, caso, user_input):
         '''
@@ -129,8 +157,11 @@ class ChatBot:
         elif intent == 'descripcion': 
             return contar_chiste()
         elif intent == 'terminar':
-            print(despedida(user_input))
-            sys.exit(0)
+            #print(despedida(user_input))
+            #sys.exit(0)
+
+            #se despide pero no se cierre el programa
+            return despedida(user_input)
         return ''
 
 
@@ -158,6 +189,11 @@ conocimiento = conocimientoT()
 #  pokedex                              #
 #---------------------------------------#
 pokedex = pokedexC()
+
+#---------------------------------------#
+#  pokemones                            #
+#---------------------------------------#
+pokemones = pokemonesC()
 
 #---------------------------------------#
 #  Interfaz de texto                    #

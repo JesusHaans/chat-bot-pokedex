@@ -8,7 +8,7 @@ async def send_message(message, user_message, is_private):
     await message.author.send(response) if is_private else await message.channel.send(response)
 
 def run_discord_bot():
-    TOKEN = 'MTExMDc5MTczMzY0Nzc4MTkwOQ.GkxMcA.HqYwuJ-So502YpXmQ_7xcnvwu3v6PALnSn7kmo'
+    TOKEN = 'MTExMDc5MTczMzY0Nzc4MTkwOQ.GbBDXj.klrIZs4m6K1xYLoUmyycTPFJxvjBBdjUgUiYEY'
     intents = discord.Intents.default()
     intents.message_content = True
     client = discord.Client(intents=intents)
