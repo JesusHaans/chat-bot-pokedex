@@ -1,5 +1,12 @@
 import os, time, string, random, re
 from random import randrange
+from pokedex import pokedexC
+
+
+#---------------------------------------#
+#  pokedex                              #
+#---------------------------------------#
+pokedex = pokedexC()
 
 
 def contar_chiste():
@@ -35,3 +42,159 @@ def despedida(user_input):
         if i in des:
             despedida_definitiva = random.choice(despedida_glados)
     return despedida_definitiva
+
+#-----------------Tipo----------------------#
+
+def dar_tipo_nombre(nombre):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['pokemon'] == nombre:
+            return str(pokemon['tipo'])
+    return ''
+
+def dar_tipo_numero(numero):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['num'] == numero:
+            return str(pokemon['tipo'])
+    return ''
+
+#-----------------Peso----------------------#
+
+def dar_peso_nombre(nombre):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['pokemon'] == nombre:
+            return str(pokemon['peso'])
+    return ''
+
+def dar_peso_numero(numero):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['num'] == numero:
+            return str(pokemon['peso'])
+    return ''
+
+#-----------------Altura----------------------#
+
+def dar_altura_nombre(nombre):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['pokemon'] == nombre:
+            return str(pokemon['altura'])
+    return ''
+
+def dar_altura_numero(numero):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['num'] == numero:
+            return str(pokemon['altura'])
+    return ''
+
+#-----------------Debilidad----------------------#
+
+def dar_debilidad_nombre(nombre):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['pokemon'] == nombre:
+            return str(pokemon['debilidad'])
+    return ''
+
+def dar_debilidad_numero(numero):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['num'] == numero:
+            return str(pokemon['debilidad'])
+    return ''
+
+#-----------------Fortaleza----------------------#
+
+def dar_fortaleza_nombre(nombre):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['pokemon'] == nombre:
+            return str(pokemon['fortaleza'])
+    return ''
+
+def dar_fortaleza_numero(numero):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['num'] == numero:
+            return str(pokemon['fortaleza'])
+    return ''
+
+#-----------------Descripcion----------------------#
+
+def dar_descripcion_nombre(nombre):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['pokemon'] == nombre:
+            return str(pokemon['descripcion'])
+    return ''
+
+def dar_descripcion_numero(numero):
+    '''
+    Devuelve el tipo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['num'] == numero:
+            return str(pokemon['descripcion'])
+    return ''

@@ -24,10 +24,7 @@ def pokedexC():
         {
             'pokemon': 'bulbasaur',
             'num': '001',
-            'tipo': [
-                'planta',
-                'veneno'
-            ],
+            'tipo': ['planta','veneno'],
             'peso': '6.9 kg',
             'altura': '0.7 m',
             'debilidad': [
@@ -43,10 +40,78 @@ def pokedexC():
                 'electrico'
             ],  
             'descripcion': 'Bulbasaur es un Pokémon de tipo planta/veneno introducido en la primera generación. Es uno de los Pokémon iniciales que puede elegir el jugador al comenzar la aventura en las regiones Kanto y Johto.'
-        }
+        },
+        #////////////////////////////////////////////////Ivysaur.
+        {
+            'pokemon': 'ivysaur',
+            'num': '002',
+            'tipo': ['planta','veneno'],
+            'peso': '13 kg',
+            'altura': '1 m',
+            'debilidad': [
+                'fuego',
+                'volador',
+                'hielo',
+                'psiquico'
+            ],
+            'fortaleza': [ 
+                'agua',
+                'planta',
+                'tierra',
+                'electrico'
+            ],
+            'descripcion': 'Ivysaur es un Pokémon de tipo planta/veneno introducido en la primera generación. Es la evolución de Bulbasaur. Es uno de los Pokémon iniciales que puede elegir el jugador al comenzar la aventura en las regiones Kanto y Johto.'
+        },
+        #////////////////////////////////////////////////Venusaur.
+        {
+            'pokemon': 'venusaur',
+            'num': '003',
+            'tipo': ['planta','veneno'],
+            'peso': '100 kg',
+            'altura': '2 m',
+            'debilidad': [
+                'fuego',
+                'volador',
+                'hielo',
+                'psiquico'
+            ],
+            'fortaleza': [
+                'agua',
+                'planta',
+                'tierra',
+                'electrico'
+            ],
+            'descripcion': 'Venusaur es un Pokémon de tipo planta/veneno introducido en la primera generación. Es la evolución de Ivysaur. Es uno de los Pokémon iniciales que puede elegir el jugador al comenzar la aventura en las regiones Kanto y Johto.'
+        },
+        #////////////////////////////////////////////////Charmander.
+        {
+            'pokemon': 'charmander',
+            'num': '004',
+            'tipo': ['fuego'],
+            'peso': '8.5 kg',
+            'altura': '0.6 m',
+            'debilidad': [
+                'agua',
+                'tierra',
+                'roca'
+            ],
+            'fortaleza': [
+                'planta',
+                'hielo',
+                'bicho',
+                'acero'
+            ],
+            'descripcion': 'Charmander es un Pokémon de tipo fuego introducido en la primera generación. Es uno de los Pokémon iniciales que puede elegir el jugador al comenzar la aventura en las regiones Kanto y Johto.'
+        },
+
     ]
     return pokedex
 
+
+#----------------------------------------------------------------------
+# Base de pokémon
+# La base de pokemones representa una lista de todos los pokemon.
+#----------------------------------------------------------------------
 def pokemonesC():
     # Lista de los 151 Pokémon originales
     pokemones = [

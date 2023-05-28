@@ -4,8 +4,8 @@
 
 import string, re, random, sys
 from conocimiento import conocimientoT
-from ResponseFunctions import contar_chiste, despedida
-from pokedex import pokedexC, pokemonesC
+from ResponseFunctions import contar_chiste, despedida, dar_tipo_nombre, dar_tipo_numero, dar_peso_nombre, dar_peso_numero, dar_altura_nombre, dar_altura_numero, dar_debilidad_nombre, dar_debilidad_numero, dar_fortaleza_nombre, dar_fortaleza_numero, dar_descripcion_nombre, dar_descripcion_numero
+from pokedex import pokemonesC
 
 class ChatBot:
     """
@@ -108,6 +108,41 @@ class ChatBot:
                 respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
             else:
                 respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+        elif intent == 'peso':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+            else:
+                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+        elif intent == 'altura':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+            else:
+                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+        elif intent == 'debilidad':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+            else:
+                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+        elif intent == 'fortaleza':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+            else:
+                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+        elif intent == 'descripcion':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+            else:
+                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
         return respuesta_cambiada
     
 
@@ -145,17 +180,59 @@ class ChatBot:
         '''
         intent = caso['intent']
         if intent == 'tipo':
-            return contar_chiste()
+            if self.obtener_nombre_pokemon(user_input) != None:
+                #return 'entre en tipo nombre'
+                return dar_tipo_nombre(self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                #return 'entre en tipo numero'
+                return dar_tipo_numero(self.obtener_numero_pokemon(user_input))
+            else:
+                return ''
         elif intent == 'peso': 
-            return contar_chiste()
+            if self.obtener_nombre_pokemon(user_input) != None:
+                #return 'entre en tipo nombre'
+                return dar_peso_nombre(self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                #return 'entre en tipo numero'
+                return dar_peso_numero(self.obtener_numero_pokemon(user_input))
+            else:
+                return ''
         elif intent == 'altura': 
-            return contar_chiste()
+            if self.obtener_nombre_pokemon(user_input) != None:
+                #return 'entre en tipo nombre'
+                return dar_altura_nombre(self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                #return 'entre en tipo numero'
+                return dar_altura_numero(self.obtener_numero_pokemon(user_input))
+            else:
+                return ''
         elif intent == 'debilidad': 
-            return contar_chiste()
+            if self.obtener_nombre_pokemon(user_input) != None:
+                #return 'entre en tipo nombre'
+                return dar_debilidad_nombre(self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                #return 'entre en tipo numero'
+                return dar_debilidad_numero(self.obtener_numero_pokemon(user_input))
+            else:
+                return ''
         elif intent == 'fortaleza': 
-            return contar_chiste()
+            if self.obtener_nombre_pokemon(user_input) != None:
+                #return 'entre en tipo nombre'
+                return dar_fortaleza_nombre(self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                #return 'entre en tipo numero'
+                return dar_fortaleza_numero(self.obtener_numero_pokemon(user_input))
+            else:
+                return ''
         elif intent == 'descripcion': 
-            return contar_chiste()
+            if self.obtener_nombre_pokemon(user_input) != None:
+                #return 'entre en tipo nombre'
+                return dar_descripcion_nombre(self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                #return 'entre en tipo numero'
+                return dar_descripcion_numero(self.obtener_numero_pokemon(user_input))
+            else:
+                return ''
         elif intent == 'terminar':
             #print(despedida(user_input))
             #sys.exit(0)
@@ -185,15 +262,13 @@ class ChatBot:
 #---------------------------------------#
 conocimiento = conocimientoT()
 
-#---------------------------------------#
-#  pokedex                              #
-#---------------------------------------#
-pokedex = pokedexC()
 
 #---------------------------------------#
 #  pokemones                            #
 #---------------------------------------#
 pokemones = pokemonesC()
+
+
 
 #---------------------------------------#
 #  Interfaz de texto                    #

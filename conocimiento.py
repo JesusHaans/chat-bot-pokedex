@@ -1,3 +1,5 @@
+from pokedex import pokemonesC
+
 #----------------------------------------------------------------------
 # Base de conocimiento
 # La base de conocimiento representa una lista de todos los casos o intents.
@@ -44,8 +46,8 @@ def conocimientoT():
         {
             'intent': 'peso',
             'regex': [
-                r'^.*peso de(.*)$',
-                r'^.*peso tiene(.*)$',
+                r'^.*peso de (.*)$',
+                r'^.*peso tiene (.*)$',
             ],
             'respuesta': [
                 'El peso de %1 es '
@@ -55,7 +57,8 @@ def conocimientoT():
         {
             'intent': 'altura',
             'regex': [
-                r'(.*)altura(.*)',
+                r'^.*altura de (.*)$',
+                r'^.*altura tiene (.*)$',
             ],
             'respuesta': [
                 'La altura de %1 es '
@@ -65,7 +68,8 @@ def conocimientoT():
         {
             'intent': 'debilidad',
             'regex': [
-                r'(.*)(debilidad|debilidades)(.*)$',
+                r'^.*(debilidad|debilidades) de (.*)$',
+                r'^.*(debilidad|debilidades) tiene (.*)$',
             ],
             'respuesta': [
                 'La debilidad de %1 es '
@@ -73,9 +77,10 @@ def conocimientoT():
         }, 
         #////////////////////////////////////////////////Fortaleza.
         {
-            'intent': 'Fortaleza',
+            'intent': 'fortaleza',
             'regex': [
-                r'(.*)(fortaleza|fortalezas)(.*)',
+                r'^.*(fortaleza|fortalezas) de (.*)$',
+                r'^.*(fortaleza|fortalezas) tiene (.*)$',
             ],
             'respuesta': [
                 'La fortaleza de %1 es '
@@ -85,12 +90,24 @@ def conocimientoT():
         {
             'intent': 'descripcion',
             'regex': [
-                r'(.*)descripcion(.*)$',
+                r'^.*descripcion de (.*)$',
+                r'^.*descripcion tiene (.*)$',
             ],
             'respuesta': [
                 'La descripcion de %1 es '
             ]
         }, 
+        #////////////////////////////////////////////////Otro.
+        {
+            'intent': 'otro',
+            'regex': [
+                r"\b(" + "|".join(pokemones) + r")\b",
+                r'[0-9][0-9][0-9]'
+            ],
+            'respuesta': [
+                ''
+            ]
+        },
         #////////////////////////////////////////////////Fin.
         {
             'intent': 'terminar',
@@ -119,3 +136,10 @@ def conocimientoT():
         #////////////////////////////////////////////////
     ]
     return conocimiento
+
+
+
+#---------------------------------------#
+#  pokemones                            #
+#---------------------------------------#
+pokemones = pokemonesC()
