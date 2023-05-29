@@ -2,15 +2,20 @@
 #  ChatBot.py                                     #
 #------------------------------------------------#
 
+import numpy as np
 import re, random, sys
 from conocimiento import conocimientoT
 from ResponseFunctions import contar_chiste, despedida, dar_tipo_nombre, dar_tipo_numero,dar_nombre_numero,dar_numero_nombre, dar_peso_nombre, dar_peso_numero, dar_altura_nombre, dar_altura_numero, dar_debilidad_nombre, dar_debilidad_numero, dar_fortaleza_nombre, dar_fortaleza_numero, dar_descripcion_nombre, dar_descripcion_numero
 from pokedex import pokemonesC
 
+
 class ChatBot:
     """
     Clase ChatBot para simular una conversación 
-    sobre videojuegos
+    sobre pokemones con un usuario, dando información como si fuera una pokedex.
+
+    :param str contexto: El contexto actual de la conversación
+    :param str entrada: El texto escrito por el usuario
     """
     contexto = "DEFAULT"
     entrada = ""
@@ -45,6 +50,45 @@ class ChatBot:
         respuesta = self.convertir_respuesta(random.choice(caso['respuesta']), caso, user_input)
         respuesta_final = (respuesta + '\n' + informacion_adicional).strip() 
         return respuesta_final
+    
+    def split_user_inputV(self, user_input):
+        archivo = open('intentsPokeC.csv', 'r')  # Reemplaza 'nombre_archivo.txt' con la ruta y nombre de tu archivo
+        try:
+            primera_linea = archivo.readline().strip()
+            opciones = primera_linea.split(',')
+            print( str(opciones) )
+        finally:
+            archivo.close()
+        transformada = [0]*len(opciones)
+        ## -------------------------------------- codigo para crear vector  a partir del user input
+        for i, palabra in enumerate(opciones):
+            if palabra in user_input:
+                transformada[i] = 1
+        return transformada
+
+    def encontrar_intentV(self, user_input):
+        archivo = open('intentsPokeC.csv', 'r')  # Reemplaza 'nombre_archivo.txt' con la ruta y nombre de tu archivo
+        lineas = []
+        minDist = 100000000
+        intent = ""
+        transformada = self.split_user_inputV(user_input)
+        try:
+            next(archivo)
+            for linea in archivo:
+                linea_array = linea.split(',')
+                linea_array.pop(0)
+                ##AGREGA AQUÍ EL CÓDIGO PARA LEER LAS LÍNEAS, NOTA QUE ESTO ES SOLO UNA BASE, POR LO QUE PARA LLEGAR AL CÁLCULO DEL VECTOR DEBERÁS PROCESAR DE FORMA CORRECTA LA LÍNEA DEL ARCHIVO ANTES DE HACER EL CÁLCULO.
+                a = np.array(linea_array)
+                b = np.array(transformada)
+                a = a.astype(int)
+                b = b.astype(int)
+                dist = np.linalg.norm(a-b) ## distancia entre vectores
+                if dist < minDist:
+                    minDist = dist
+                    intent = linea_array[0]
+        finally:
+            archivo.close()
+        return intent
 
     def encontrar_intent(self, user_input):
         '''
