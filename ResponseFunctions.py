@@ -57,6 +57,35 @@ def dar_tipo_nombre(nombre):
             return str(pokemon['tipo'])
     return ''
 
+#-----------------codigo----------------------#
+
+def dar_nombre_numero(nombre):
+    '''
+    Devuelve el codigo del pokemon
+
+    :param str nombre: El nombre del pokemon
+    :return El tipo del pokemon
+    '''
+    for pokemon in pokedex:
+        if pokemon['pokemon'] == nombre:
+            return str(pokemon['num'])
+    return ''
+
+#-----------------nombre----------------------#
+
+def dar_numero_nombre(codigo):
+    '''
+    Devuelve el nombre del pokemon
+
+    :
+    '''
+    for pokemon in pokedex:
+        if pokemon['num'] == codigo:
+            return str(pokemon['pokemon'])
+    return ''
+
+#-----------------Tipo----------------------#
+
 def dar_tipo_numero(numero):
     '''
     Devuelve el tipo del pokemon

@@ -42,6 +42,28 @@ def conocimientoT():
                 'El tipo de %1 es '
             ]
         },
+        #////////////////////////////////////////////////Codigo.
+        {
+            'intent': 'codigo',
+            'regex': [
+                r'^.*codigo de (.*)$',
+                r'^.*codigo es (.*)$',
+            ],
+            'respuesta': [
+                'El codigo de %1 es '
+            ]
+        },
+        #////////////////////////////////////////////////Nombre.
+        {
+            'intent': 'nombre',
+            'regex': [
+                r'^.*nombre de (.*)$',
+                r'^.*nombre es (.*)$',
+            ],
+            'respuesta': [
+                'El nombre de %1 es '
+            ]
+        },
         #////////////////////////////////////////////////Peso.
         {
             'intent': 'peso',

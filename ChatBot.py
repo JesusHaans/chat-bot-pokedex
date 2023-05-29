@@ -2,9 +2,9 @@
 #  ChatBot.py                                     #
 #------------------------------------------------#
 
-import string, re, random, sys
+import re, random, sys
 from conocimiento import conocimientoT
-from ResponseFunctions import contar_chiste, despedida, dar_tipo_nombre, dar_tipo_numero, dar_peso_nombre, dar_peso_numero, dar_altura_nombre, dar_altura_numero, dar_debilidad_nombre, dar_debilidad_numero, dar_fortaleza_nombre, dar_fortaleza_numero, dar_descripcion_nombre, dar_descripcion_numero
+from ResponseFunctions import contar_chiste, despedida, dar_tipo_nombre, dar_tipo_numero,dar_nombre_numero,dar_numero_nombre, dar_peso_nombre, dar_peso_numero, dar_altura_nombre, dar_altura_numero, dar_debilidad_nombre, dar_debilidad_numero, dar_fortaleza_nombre, dar_fortaleza_numero, dar_descripcion_nombre, dar_descripcion_numero
 from pokedex import pokemonesC
 
 class ChatBot:
@@ -84,6 +84,10 @@ class ChatBot:
             self.contexto = "FORTALEZA"
         elif intent == 'descripcion':
             self.contexto = "DESCRIPCION"
+        elif intent == 'codigo':
+            self.contexto = "CODIGO"
+        elif intent == 'nombre':
+            self.contexto = "NOMBRE"
         elif intent == 'desconocido':
             self.contexto = "DEFAULT"  
 
@@ -143,6 +147,18 @@ class ChatBot:
                 respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
             else:
                 respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+        if intent == 'codigo':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+            else:
+                respuesta_cambiada = "No se encontró el nombre del Pokémon"
+        if intent == 'nombre':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+            else:
+                respuesta_cambiada = "No se encontró el código del Pokémon 1"                
         return respuesta_cambiada
     
 
@@ -187,7 +203,7 @@ class ChatBot:
                 #return 'entre en tipo numero'
                 return dar_tipo_numero(self.obtener_numero_pokemon(user_input))
             else:
-                return ''
+                return ''        
         elif intent == 'peso': 
             if self.obtener_nombre_pokemon(user_input) != None:
                 #return 'entre en tipo nombre'
@@ -233,6 +249,24 @@ class ChatBot:
                 return dar_descripcion_numero(self.obtener_numero_pokemon(user_input))
             else:
                 return ''
+        if intent == 'codigo':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                return dar_nombre_numero(self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                return dar_nombre_numero(self.obtener_numero_pokemon(user_input))
+            if self.obtener_nombre_pokemon(user_input) != None:
+                return dar_nombre_numero(self.obtener_numero_pokemon(user_input))
+            else:
+                return ''
+        if intent == 'nombre':
+            if self.obtener_nombre_pokemon(user_input) != None:
+                return dar_numero_nombre(self.obtener_nombre_pokemon(user_input))
+            elif self.obtener_numero_pokemon(user_input) != None:
+                return dar_numero_nombre(self.obtener_numero_pokemon(user_input))
+            if self.obtener_nombre_pokemon(user_input) != None:
+                return dar_numero_nombre(self.obtener_numero_pokemon(user_input))
+            else:
+                return ''                           
         elif intent == 'terminar':
             #print(despedida(user_input))
             #sys.exit(0)
