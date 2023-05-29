@@ -76,7 +76,7 @@ class ChatBot:
             next(archivo)
             for linea in archivo:
                 linea_array = linea.split(',')
-                linea_array.pop(0)
+                inte = linea_array.pop(0)
                 ##AGREGA AQUÍ EL CÓDIGO PARA LEER LAS LÍNEAS, NOTA QUE ESTO ES SOLO UNA BASE, POR LO QUE PARA LLEGAR AL CÁLCULO DEL VECTOR DEBERÁS PROCESAR DE FORMA CORRECTA LA LÍNEA DEL ARCHIVO ANTES DE HACER EL CÁLCULO.
                 a = np.array(linea_array)
                 b = np.array(transformada)
@@ -85,7 +85,7 @@ class ChatBot:
                 dist = np.linalg.norm(a-b) ## distancia entre vectores
                 if dist < minDist:
                     minDist = dist
-                    intent = linea_array[0]
+                    intent = inte
         finally:
             archivo.close()
         return intent
