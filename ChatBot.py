@@ -25,9 +25,16 @@ class ChatBot:
         ChatBot consta de una base de conocimiento
         representada como una lista de casos o intents.
         """ 
+        '''
+        ##-------------------------------------- codigo para encontrar intent usando expresiones regulares
         self.conocimiento = [] 
         for caso in conocimiento:
             caso['regex'] = list(map(lambda x:re.compile(x, re.IGNORECASE), caso['regex']))
+            self.conocimiento.append(caso)
+        '''
+        ##-------------------------------------- codigo para encontrar intent usando vector
+        self.conocimiento = []
+        for caso in conocimiento:
             self.conocimiento.append(caso)
 
     def responder(self, user_input):
@@ -98,12 +105,21 @@ class ChatBot:
         :return El diccionario que representa el caso o intent deseado
         :rtype: str
         '''
+        '''
+        ##-------------------------------------- codigo para encontrar intent usando expresiones regulares
+
         for caso in self.conocimiento:
             for regularexp in caso['regex']:
                 match = regularexp.match(user_input)
                 if match:
                     self.regexp_selected = regularexp 
                     return caso
+        '''
+        ##-------------------------------------- codigo para encontrar intent usando distancia entre vectores
+        intent_usuario = self.encontrar_intentV(user_input)
+        for caso in self.conocimiento:
+            if caso['intent'] == intent_usuario:
+                return caso
         return {}
 
     def identifica_contexto(self, caso):
@@ -148,68 +164,77 @@ class ChatBot:
         '''
         respuesta_cambiada = respuesta
         intent = caso['intent']
+        '''
+        ##-------------------------------------- codigo para encontrar intent usando expresiones regulares
         match = self.regexp_selected.match(user_input)
-        if intent == 'tipo':
-            if self.obtener_nombre_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
-            elif self.obtener_numero_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
-            else:
-                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
-        elif intent == 'peso':
-            if self.obtener_nombre_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
-            elif self.obtener_numero_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
-            else:
-                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
-        elif intent == 'altura':
-            if self.obtener_nombre_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
-            elif self.obtener_numero_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
-            else:
-                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
-        elif intent == 'debilidad':
-            if self.obtener_nombre_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
-            elif self.obtener_numero_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
-            else:
-                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
-        elif intent == 'fortaleza':
-            if self.obtener_nombre_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
-            elif self.obtener_numero_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
-            else:
-                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
-        elif intent == 'descripcion':
-            if self.obtener_nombre_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
-            elif self.obtener_numero_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
-            else:
-                respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
-        if intent == 'codigo':
-            if self.obtener_nombre_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
-            else:
-                respuesta_cambiada = "No se encontró el nombre del Pokémon"
-        if intent == 'nombre':
-            if self.obtener_nombre_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
-            elif self.obtener_numero_pokemon(user_input) != None:
-                respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
-            else:
-                respuesta_cambiada = "No se encontró el código del Pokémon 1"                
+        '''
+        ##-------------------------------------- codigo para encontrar intent usando distancia entre vectores
+        for regularExp in caso['regex']:
+            regex = re.compile(regularExp, re.IGNORECASE)
+            match = regex.match(user_input)
+            if match:
+                if intent == 'tipo':
+                    if self.obtener_nombre_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+                    elif self.obtener_numero_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+                    else:
+                        respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+                elif intent == 'peso':
+                    if self.obtener_nombre_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+                    elif self.obtener_numero_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+                    else:
+                        respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+                elif intent == 'altura':
+                    if self.obtener_nombre_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+                    elif self.obtener_numero_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+                    else:
+                        respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+                elif intent == 'debilidad':
+                    if self.obtener_nombre_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+                    elif self.obtener_numero_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+                    else:
+                        respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+                elif intent == 'fortaleza':
+                    if self.obtener_nombre_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+                    elif self.obtener_numero_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+                    else:
+                        respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+                elif intent == 'descripcion':
+                    if self.obtener_nombre_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+                    elif self.obtener_numero_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+                    else:
+                        respuesta_cambiada = "No se encontró el nombre o numero del Pokémon"
+                if intent == 'codigo':
+                    if self.obtener_nombre_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+                    else:
+                        respuesta_cambiada = "No se encontró el nombre del Pokémon"
+                if intent == 'nombre':
+                    if self.obtener_nombre_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_nombre_pokemon(user_input))
+                    elif self.obtener_numero_pokemon(user_input) != None:
+                        respuesta_cambiada = respuesta_cambiada.replace('%1', self.obtener_numero_pokemon(user_input))
+                    else:
+                        respuesta_cambiada = "No se encontró el código del Pokémon"                
         return respuesta_cambiada
     
 
     def obtener_nombre_pokemon(self, user_input):
     # Expresión regular para buscar los nombres de Pokémon
         patron = r"\b(" + "|".join(pokemones) + r")\b"
-
+        p = re.compile(patron, re.IGNORECASE)
+        u_i = re.compile(user_input, re.IGNORECASE)
     # Buscar el nombre de Pokémon en la cadena
         resultado = re.search(patron, user_input, re.IGNORECASE)
         if resultado:
@@ -220,7 +245,8 @@ class ChatBot:
     def obtener_numero_pokemon(self, user_input):
     # Expresión regular para buscar los nombres de Pokémon
         patron = r'[0-9][0-9][0-9]'
-
+        p = re.compile(patron, re.IGNORECASE)
+        u_i = re.compile(user_input, re.IGNORECASE)
     # Buscar el nombre de Pokémon en la cadena
         resultado = re.search(patron, user_input, re.IGNORECASE)
         if resultado:
